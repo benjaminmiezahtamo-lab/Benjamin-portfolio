@@ -14,21 +14,24 @@ def home():
     return render_template("index.html")
 
 
+import resend
+import os
+
 @app.route("/contact", methods=["POST"])
 def contact():
     name = request.form.get("name")
     email = request.form.get("email")
     message = request.form.get("message")
 
-    msg = EmailMessage()
+    try:
+        resend.api_key = os.getenv("RESEND_API_KEY")
 
-    msg["Subject"] = f"Portfolio Contact: {name}"
-    msg["From"] = os.getenv("MAIL_USERNAME")
-    msg["To"] = os.getenv("MAIL_USERNAME")
-    msg["Reply-To"] = email
-
-    msg.set_content(
-        f"""
+        resend.Emails.send({
+            "from": "Portfolio <onboarding@resend.dev>",
+            "to": [os.getenv("MAIL_USERNAME")],
+            "subject": f"Portfolio Contact: {name}",
+            "reply_to": email,
+            "text": f"""
 You received a new message from your portfolio.
 
 Name: {name}
@@ -37,17 +40,14 @@ Email: {email}
 Message:
 {message}
 """
-    )
+        })
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login(
-            os.getenv("MAIL_USERNAME"),
-            os.getenv("MAIL_PASSWORD")
-        )
-        smtp.send_message(msg)
+        return "Message sent successfully!", 200
 
-    return "Message sent successfully!"
+    except Exception as e:
+        print(f"Email error: {e}")
+        return "Sorry, your message could not be sent. Please try again later.", 500
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(debug=True)
