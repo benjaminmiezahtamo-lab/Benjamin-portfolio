@@ -46,15 +46,17 @@
         .hero-image {
             flex: 0 0 auto;
         }
-        
         .profile-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center 20%; /* 0% is the very top, 50% is center */
-  display: block;
-  margin: 0 auto;
+  width: 160px !important;
+  height: 160px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center 15% !important;
+  display: block !important;
+  margin: 0 auto !important;
+
+        
+        
 }
 }
         }
@@ -478,7 +480,7 @@
         </div>
         <div>
             <img src="{{ url_for('static', filename='images/ben-profile.jpeg') }}"
-     class="Profile-pic"
+     class="profile-img"
      alt="Profile Photo">
             <a href="https://www.linkedin.com/in/Benjamin_Miezah_Tamo/">Hire Me</a>
 
