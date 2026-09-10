@@ -47,19 +47,18 @@
             flex: 0 0 auto;
         }
         .profile-img {
-  width: 160px !important;
-  height: 160px !important;
-  border-radius: 50% !important;
+  width: 220px !important;
+  height: 220px !important;
+  border-radius: 50% !important; /* Full circular crop */
   object-fit: cover !important;
-  object-position: center 15% !important;
+  object-position: center 8% !important; /* Pulls the image down so the top of your head is not cut off */
   display: block !important;
-  margin: 0 auto !important;
+  margin: 20px auto !important;
+  border: 4px solid #ffffff; /* Clean white border */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft professional shadow */
+}
 
         
-        
-}
-}
-        }
         /*Mobile*/
         
         @media(max-width:768px) {
